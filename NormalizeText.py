@@ -212,11 +212,3 @@ file_url_id = urls_2.set_index("url").join(urls_1.set_index("url")).reset_index(
 for url_id in range(74242):
     with open(str(url_id) + ".pickle", 'wb') as f:
         pickle.dump(html2word_whoosh_text(parse_text(url_id)), f)
-
-
-
-
-
-
-
-
