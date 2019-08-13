@@ -25,7 +25,7 @@ def html2text_bs_visible(url_id, raw_html):
     parse_text['url_id'] = url_id
 
     if soup.title is not None:
-        parse_text['title'] = soup.title.string
+        parse_text['title'] = soup.title.string.replace('ё', 'е')
     else:
         parse_text['title'] = []
 
@@ -33,51 +33,51 @@ def html2text_bs_visible(url_id, raw_html):
     if meta:
         for tag in meta:
             if tag.get("name", None) == "keywords":
-                parse_text['keywords'] = tag.get("content", None)
+                parse_text['keywords'] = tag.get("content", None).replace('ё', 'е')
             else:
                 parse_text['keywords'] = []
 
             if tag.get("name", None) == "description":
-                parse_text['description'] = tag.get("content", None)
+                parse_text['description'] = tag.get("content", None).replace('ё', 'е')
             else:
                 parse_text['description'] = []
 
     if soup.strong is not None:
-        parse_text['strong'] = soup.strong.string
+        parse_text['strong'] = soup.strong.string.replace('ё', 'е')
     else:
         parse_text['strong'] = []
 
     if soup.h1 is not None:
-        parse_text['h1'] = soup.h1.string
+        parse_text['h1'] = soup.h1.string.replace('ё', 'е')
     else:
         parse_text['h1'] = []
 
     if soup.h2 is not None:
-        parse_text['h2'] = soup.h2.string
+        parse_text['h2'] = soup.h2.string.replace('ё', 'е')
     else:
         parse_text['h2'] = []
 
     if soup.h3 is not None:
-        parse_text['h3'] = soup.h3.string
+        parse_text['h3'] = soup.h3.string.replace('ё', 'е')
     else:
         parse_text['h3'] = []
 
     if soup.h4 is not None:
-        parse_text['h4'] = soup.h4.string
+        parse_text['h4'] = soup.h4.string.replace('ё', 'е')
     else:
         parse_text['h4'] = []
 
     if soup.h5 is not None:
-        parse_text['h5'] = soup.h5.string
+        parse_text['h5'] = soup.h5.string.replace('ё', 'е')
     else:
         parse_text['h5'] = []
 
     if soup.ins is not None:
-        parse_text['ins'] = soup.ins.string
+        parse_text['ins'] = soup.ins.string.replace('ё', 'е')
     else:
         parse_text['ins'] = []
 
-    parse_text['text'] = soup.get_text()
+    parse_text['text'] = soup.get_text().replace('ё', 'е')
 
     return parse_text
 
@@ -210,5 +210,5 @@ urls_2 = urls_2.rename(columns={
 file_url_id = urls_2.set_index("url").join(urls_1.set_index("url")).reset_index()[['file', 'url_id']]
 
 for url_id in range(74242):
-    with open(str(url_id) + ".pickle", 'wb') as f:
+    with open("data/" + str(url_id) + ".pickle", 'wb') as f:
         pickle.dump(html2word_whoosh_text(parse_text(url_id)), f)
